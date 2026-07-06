@@ -30,7 +30,7 @@ function ContactContent() {
 
   useEffect(() => {
     // Load custom jersey from localStorage if available
-    const saved = localStorage.getItem('viperwear_custom_design');
+    const saved = localStorage.getItem('viper_custom_design');
     if (saved) {
       try {
         const parsed = JSON.parse(saved) as JerseyDesignState;
@@ -82,7 +82,7 @@ function ContactContent() {
       setFormSubmitted(true);
       
       // Clear design from localstorage on successful quote request
-      localStorage.removeItem('viperwear_custom_design');
+      localStorage.removeItem('viper_custom_design');
     }, 2000);
   };
 
@@ -143,7 +143,7 @@ function ContactContent() {
               </div>
               <div className="flex items-center gap-2">
                 <Mail size={14} className="text-accent-gold" />
-                <span>info@viperwear.in</span>
+                <span>info@viper.in</span>
               </div>
               <div className="flex items-center gap-2">
                 <MapPin size={14} className="text-accent-gold" />

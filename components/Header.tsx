@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { ShoppingCart, Menu, X } from 'lucide-react';
 
@@ -22,14 +23,13 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 group">
-          <div className="flex flex-col line-height-[0.9]">
-            <span className="font-varsity text-3xl font-extrabold tracking-wider text-text-primary transition-all group-hover:scale-102">
-              VIPER
-            </span>
-            <span className="font-sans text-xs font-bold tracking-[5px] text-accent-gold -mt-1">
-              WEAR
-            </span>
-          </div>
+          <Image
+            src="/logo.png"
+            alt="Viper Logo"
+            width={120}
+            height={30}
+            className="invert transition-all group-hover:scale-105"
+          />
         </Link>
 
         {/* Desktop Nav */}

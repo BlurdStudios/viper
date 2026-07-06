@@ -111,7 +111,7 @@ export default function ControlPanel({ designState, setDesignState, onSave, onNe
       logo: null,
       logoPosition: 'center',
       text: {
-        content: 'VIPER WEAR',
+        content: 'VIPER',
         font: 'Varsity',
         color: '#F5A623',
         position: 'chest'

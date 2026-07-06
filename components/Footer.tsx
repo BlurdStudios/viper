@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Footer() {
   return (
@@ -7,12 +8,13 @@ export default function Footer() {
         {/* Brand Section */}
         <div className="flex flex-col gap-6">
           <div className="flex flex-col line-height-[0.9]">
-            <span className="font-varsity text-4xl font-extrabold tracking-wider text-text-primary">
-              VIPER
-            </span>
-            <span className="font-sans text-sm font-bold tracking-[6px] text-accent-gold -mt-1">
-              WEAR
-            </span>
+            <Image
+              src="/logo.png"
+              alt="Viper Logo"
+              width={160}
+              height={40}
+              className="invert"
+            />
           </div>
           <p className="text-text-secondary text-sm leading-relaxed max-w-xs">
             We don't just make jerseys. We build identity. Premium custom sportswear engineered for champions.
@@ -147,7 +149,7 @@ export default function Footer() {
               </li>
               <li className="flex flex-col gap-1">
                 <span className="text-[10px] font-semibold text-text-muted uppercase tracking-wider">Email:</span>
-                <a href="mailto:info@viperwear.in" className="hover:text-accent-gold transition-colors">info@viperwear.in</a>
+                <a href="mailto:info@viper.in" className="hover:text-accent-gold transition-colors">info@viper.in</a>
               </li>
               <li className="flex flex-col gap-1">
                 <span className="text-[10px] font-semibold text-text-muted uppercase tracking-wider">Location:</span>
@@ -161,7 +163,7 @@ export default function Footer() {
       {/* Copyright Bar */}
       <div className="border-t border-border-color bg-black/40 py-6">
         <div className="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-text-muted">
-          <p>&copy; {new Date().getFullYear()} ViperWear. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Viper. All rights reserved.</p>
           <p>Crafted for premium performance.</p>
         </div>
       </div>

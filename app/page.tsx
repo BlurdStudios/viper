@@ -82,7 +82,7 @@ export default function Home() {
             <div className="relative w-full max-w-[500px] aspect-square rounded-2xl overflow-hidden border border-white/5 shadow-2xl glass-card">
               <Image
                 src="/images/hero_players.png"
-                alt="Viperwear custom jerseys"
+                alt="Viper custom jerseys"
                 fill
                 priority
                 className="object-cover"
@@ -196,12 +196,12 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Why Viperwear Section */}
+      {/* Why Viper Section */}
       <section id="about" className="py-24 bg-bg-secondary/20 border-t border-border-color w-full">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-col items-center text-center mb-16 gap-3">
             <h2 className="font-varsity text-3xl sm:text-5xl font-extrabold tracking-tight">
-              WHY <span className="text-accent-gold">VIPERWEAR?</span>
+              WHY <span className="text-accent-gold">VIPER?</span>
             </h2>
             <div className="h-[2px] w-12 bg-accent-gold" />
           </div>

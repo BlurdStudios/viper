@@ -19,7 +19,7 @@ const INITIAL_STATE: JerseyDesignState = {
   logo: null,
   logoPosition: 'center',
   text: {
-    content: 'VIPER WEAR',
+    content: 'VIPER',
     font: 'Varsity',
     color: '#F5A623',
     position: 'chest'
@@ -111,12 +111,12 @@ export default function DesignStudio() {
     setSaveSuccess(true);
     setTimeout(() => setSaveSuccess(false), 3000);
     // Optionally persist to localStorage
-    localStorage.setItem('viperwear_custom_design', JSON.stringify(designState));
+    localStorage.setItem('viper_custom_design', JSON.stringify(designState));
   };
 
   const handleNextStep = () => {
     // Navigate to contact/quote request page carrying current custom configuration in localstorage or state
-    localStorage.setItem('viperwear_custom_design', JSON.stringify(designState));
+    localStorage.setItem('viper_custom_design', JSON.stringify(designState));
     router.push('/contact?ref=customizer');
   };
 
