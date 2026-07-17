@@ -8,6 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import DemoDialog from '@/components/DemoDialog';
 
 // --- Normal Form Schema ---
 const normalFormSchema = z.object({
@@ -33,6 +34,7 @@ function ContactContent() {
   const cameFromStudio = searchParams.get('ref') === 'customizer';
 
   const [customDesign, setCustomDesign] = useState<JerseyDesignState | null>(null);
+  const [demoOpen, setDemoOpen] = useState(false);
 
   useEffect(() => {
     const saved = localStorage.getItem('viper_custom_design');
@@ -55,6 +57,24 @@ function ContactContent() {
 
   return (
     <div className="min-h-screen bg-bg-primary pt-28 pb-20 relative overflow-hidden">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Organization',
+            name: 'VIPER',
+            url: 'https://shopviper.in',
+            contactPoint: {
+              '@type': 'ContactPoint',
+              telephone: '+91-98850-39653',
+              contactType: 'customer service',
+              email: 'support@shopviper.in',
+              availableLanguage: 'English',
+            },
+          }).replace(/</g, '\\u003c'),
+        }}
+      />
       {/* Background Radial Glow */}
       <div className="absolute inset-0 bg-radial-[circle_at_center,rgba(245,166,35,0.04)_0%,rgba(6,6,8,1)_80%] pointer-events-none" />
 
@@ -115,19 +135,21 @@ function ContactContent() {
         <div className="lg:col-span-7 flex flex-col gap-6 animate-fade-in delay-200">
           
           {cameFromStudio && customDesign ? (
-            <CustomizerFormView customDesign={customDesign} onRemove={() => setCustomDesign(null)} />
+            <CustomizerFormView customDesign={customDesign} onRemove={() => setCustomDesign(null)} onDemoOpen={() => setDemoOpen(true)} />
           ) : (
-            <NormalFormView />
+            <NormalFormView onDemoOpen={() => setDemoOpen(true)} />
           )}
 
         </div>
       </div>
+
+      <DemoDialog open={demoOpen} onClose={() => setDemoOpen(false)} />
     </div>
   );
 }
 
 // --- NORMAL FORM COMPONENT ---
-function NormalFormView() {
+function NormalFormView({ onDemoOpen }: { onDemoOpen: () => void }) {
   const form = useForm<z.infer<typeof normalFormSchema>>({
     resolver: zodResolver(normalFormSchema),
     defaultValues: {
@@ -139,14 +161,7 @@ function NormalFormView() {
   });
 
   const onSubmit = (values: z.infer<typeof normalFormSchema>) => {
-    const text = `Hello! I have an inquiry:
-*Name:* ${values.name}
-*Email:* ${values.email}
-*Phone:* ${values.phone}
-*Message:* ${values.message}`;
-    
-    const encodedMessage = encodeURIComponent(text);
-    window.open(`https://wa.me/919885039653?text=${encodedMessage}`, '_blank');
+    onDemoOpen();
   };
 
   return (
@@ -253,7 +268,7 @@ function NormalFormView() {
 }
 
 // --- CUSTOMIZER FORM COMPONENT ---
-function CustomizerFormView({ customDesign, onRemove }: { customDesign: JerseyDesignState; onRemove: () => void }) {
+function CustomizerFormView({ customDesign, onRemove, onDemoOpen }: { customDesign: JerseyDesignState; onRemove: () => void; onDemoOpen: () => void }) {
   const form = useForm<z.infer<typeof customizerFormSchema>>({
     resolver: zodResolver(customizerFormSchema),
     defaultValues: {
@@ -268,21 +283,7 @@ function CustomizerFormView({ customDesign, onRemove }: { customDesign: JerseyDe
   });
 
   const onSubmit = (values: z.infer<typeof customizerFormSchema>) => {
-    const customizerInfo = `Text: "${customDesign.text.content}", Number: "${customDesign.number.content}", Pattern: "${customDesign.pattern}", Primary: "${customDesign.colors.primary}", Secondary: "${customDesign.colors.secondary}"`;
-
-    const text = `Hello, I'd like to request a custom jersey quote:
-*Name:* ${values.yourName}
-*Team:* ${values.teamName}
-*Email:* ${values.email}
-*Phone:* ${values.phone}
-*Sport:* ${values.sport}
-*Quantity:* ${values.quantity}
-*Requirements:* ${customizerInfo}
-${values.logoLink ? `*Logo Link:* ${values.logoLink}` : '*Logo:* Will share logo files on WhatsApp.'}`;
-
-    const encodedMessage = encodeURIComponent(text);
-    window.open(`https://wa.me/919885039653?text=${encodedMessage}`, '_blank');
-    localStorage.removeItem('viper_custom_design');
+    onDemoOpen();
   };
 
   return (

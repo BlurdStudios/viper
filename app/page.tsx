@@ -33,8 +33,54 @@ const FEATURES = [
 ];
 
 export default function Home() {
+  const organizationJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'VIPER',
+    url: 'https://shopviper.in',
+    logo: 'https://shopviper.in/logo.png',
+    description: 'Premium custom sportswear and jerseys. Unlimited customization, elite quality fabrics, and fast turnaround.',
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Hyderabad',
+      addressCountry: 'IN',
+    },
+    contactPoint: {
+      '@type': 'ContactPoint',
+      telephone: '+91-98850-39653',
+      contactType: 'customer service',
+      availableLanguage: 'English',
+    },
+    sameAs: [
+      'https://instagram.com',
+      'https://facebook.com',
+      'https://youtube.com',
+      'https://twitter.com',
+    ],
+  };
+
+  const websiteJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'VIPER',
+    url: 'https://shopviper.in',
+    description: 'Premium custom sportswear and jerseys. Design your own team kits.',
+  };
+
   return (
     <div className="flex flex-col w-full relative">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(organizationJsonLd).replace(/</g, '\\u003c'),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(websiteJsonLd).replace(/</g, '\\u003c'),
+        }}
+      />
       
       {/* Hero Section */}
       <section className="relative min-h-[90vh] flex items-center justify-center pt-24 pb-16 overflow-hidden">

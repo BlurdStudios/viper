@@ -110,29 +110,26 @@ export default function Footer() {
               <li>
                 <Link href="/help/faq" className="hover:text-accent-gold hover:pl-1 transition-all">FAQ</Link>
               </li>
-              <li>
-                <Link href="/help/shipping" className="hover:text-accent-gold hover:pl-1 transition-all">Shipping & Returns</Link>
-              </li>
-              <li>
-                <Link href="/help/track-order" className="hover:text-accent-gold hover:pl-1 transition-all">Track Order</Link>
-              </li>
             </ul>
           </div>
 
-          {/* Policies */}
+          {/* Legal */}
           <div className="flex flex-col gap-6">
             <h3 className="font-display text-xs font-bold tracking-wider text-text-primary">
-              POLICIES
+              LEGAL
             </h3>
             <ul className="flex flex-col gap-3 text-sm text-text-secondary">
               <li>
-                <Link href="/policies/terms" className="hover:text-accent-gold hover:pl-1 transition-all">Terms & Conditions</Link>
+                <Link href="/legal/terms" className="hover:text-accent-gold hover:pl-1 transition-all">Terms & Conditions</Link>
               </li>
               <li>
-                <Link href="/policies/privacy" className="hover:text-accent-gold hover:pl-1 transition-all">Privacy Policy</Link>
+                <Link href="/legal/privacy" className="hover:text-accent-gold hover:pl-1 transition-all">Privacy Policy</Link>
               </li>
               <li>
-                <Link href="/policies/refund" className="hover:text-accent-gold hover:pl-1 transition-all">Refund Policy</Link>
+                <Link href="/legal/refund" className="hover:text-accent-gold hover:pl-1 transition-all">Refund Policy</Link>
+              </li>
+              <li>
+                <Link href="/legal/shipping" className="hover:text-accent-gold hover:pl-1 transition-all">Shipping & Returns</Link>
               </li>
             </ul>
           </div>

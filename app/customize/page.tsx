@@ -1,10 +1,28 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
 import { ArrowRight, Sparkles, Paintbrush, ShieldCheck, ShoppingBag } from 'lucide-react';
 import JerseyPreview, { JerseyDesignState } from '@/components/JerseyCustomizer/JerseyPreview';
+import DemoDialog from '@/components/DemoDialog';
 
 export default function CustomizeLanding() {
+  const [demoOpen, setDemoOpen] = useState(false);
+
+  const serviceJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'VIPER Jersey Customizer',
+    description: 'Design and customize your own professional grade sportswear and jerseys. Choose templates, colors, patterns, add logos, names and numbers.',
+    provider: {
+      '@type': 'Organization',
+      name: 'VIPER',
+      url: 'https://shopviper.in',
+    },
+    areaServed: 'IN',
+    serviceType: 'Custom Sportswear Design',
+  };
+
   const steps = [
     {
       num: '01',
@@ -59,6 +77,12 @@ export default function CustomizeLanding() {
 
   return (
     <div className="min-h-screen bg-bg-primary pt-28 pb-20 relative overflow-hidden">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(serviceJsonLd).replace(/</g, '\\u003c'),
+        }}
+      />
       {/* Background Radial Glow */}
       <div className="absolute inset-0 bg-radial-[circle_at_center,rgba(245,166,35,0.04)_0%,rgba(6,6,8,1)_80%] pointer-events-none" />
 
@@ -151,24 +175,37 @@ export default function CustomizeLanding() {
           
           {/* Action Button Below Showcase */}
           <div className="mt-10 w-full max-w-[480px] flex flex-col items-center justify-center gap-6">
-            <Link
-              href="/customize/studio"
+            {/* Demo Notice */}
+            <div className="w-full border border-accent-gold/30 bg-accent-gold/5 rounded-xl px-5 py-4 flex flex-col items-center gap-3 text-center">
+              <div className="flex items-center gap-2">
+                <span className="bg-accent-gold/20 text-accent-gold text-[10px] font-black tracking-[3px] px-3 py-1 rounded-md uppercase">
+                  DEMO
+                </span>
+              </div>
+              <p className="text-text-secondary text-sm font-semibold leading-relaxed">
+                This is a <span className="text-accent-gold font-bold">preview demo</span> of our customizer. The full version with advanced features is coming soon.
+              </p>
+              <div className="flex flex-col items-center gap-1.5 text-text-muted text-xs">
+                <p>To order and customize jerseys, contact us:</p>
+                <a href="https://wa.me/919885039653" target="_blank" rel="noopener noreferrer" className="text-accent-gold font-bold text-base hover:text-white transition-colors">
+                  +91 98850 39653
+                </a>
+                <p>Email: <a href="mailto:support@shopviper.in" className="text-white hover:text-accent-gold transition-colors">support@shopviper.in</a></p>
+              </div>
+            </div>
+
+            <button
+              onClick={() => setDemoOpen(true)}
               className="flex items-center justify-center gap-2 bg-accent-gold hover:bg-accent-gold-hover text-black font-display text-sm font-bold tracking-wider px-10 py-5 rounded-xl transition-all glow-btn w-full cursor-pointer"
             >
-              START CUSTOMIZING
+              TRY THE DEMO
               <ArrowRight size={16} />
-            </Link>
-            <div className="text-center text-text-muted text-sm flex flex-col gap-2">
-              <p>This is just a demo for the upcoming customization feature.</p>
-              <p>To order and customize jerseys, contact us on WhatsApp:</p>
-              <a href="https://wa.me/919885039653" target="_blank" rel="noopener noreferrer" className="text-accent-gold font-bold text-lg hover:text-white transition-colors">
-                +91 98850 39653
-              </a>
-              <p>Email: <a href="mailto:support@shopviper.in" className="text-white hover:text-accent-gold transition-colors">support@shopviper.in</a></p>
-            </div>
+            </button>
           </div>
         </div>
       </div>
+
+      <DemoDialog open={demoOpen} onClose={() => setDemoOpen(false)} />
     </div>
   );
 }

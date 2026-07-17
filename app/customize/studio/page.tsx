@@ -2,10 +2,10 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { Undo, Redo, RotateCcw, ChevronLeft, ChevronRight, Check } from 'lucide-react';
 import JerseyPreview, { JerseyDesignState } from '@/components/JerseyCustomizer/JerseyPreview';
 import ControlPanel from '@/components/JerseyCustomizer/ControlPanel';
+import DemoDialog from '@/components/DemoDialog';
 
 const INITIAL_STATE: JerseyDesignState = {
   view: 'front',
@@ -63,7 +63,6 @@ const TEMPLATE_PRESETS = [
 ];
 
 export default function DesignStudio() {
-  const router = useRouter();
   
   // Customizer State
   const [designState, setDesignState] = useState<JerseyDesignState>({ ...INITIAL_STATE });
@@ -74,6 +73,7 @@ export default function DesignStudio() {
   
   // Success Alert on design save
   const [saveSuccess, setSaveSuccess] = useState<boolean>(false);
+  const [demoOpen, setDemoOpen] = useState<boolean>(false);
 
   // Custom Dispatch wrapper to record history automatically
   const updateDesignState: React.Dispatch<React.SetStateAction<JerseyDesignState>> = (action) => {
@@ -115,9 +115,7 @@ export default function DesignStudio() {
   };
 
   const handleNextStep = () => {
-    // Navigate to contact/quote request page carrying current custom configuration in localstorage or state
-    localStorage.setItem('viper_custom_design', JSON.stringify(designState));
-    router.push('/contact?ref=customizer');
+    setDemoOpen(true);
   };
 
   return (
@@ -126,6 +124,26 @@ export default function DesignStudio() {
       <div className="absolute inset-0 bg-radial-[circle_at_center,rgba(245,166,35,0.03)_0%,rgba(6,6,8,1)_85%] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 w-full flex-1 flex flex-col z-10 relative mt-4">
+        {/* Demo Mode Banner */}
+        <div className="mb-6 border border-accent-gold/30 bg-accent-gold/5 rounded-xl px-5 py-3.5 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div className="flex items-center gap-3">
+            <span className="bg-accent-gold/20 text-accent-gold text-[10px] font-black tracking-[3px] px-3 py-1 rounded-md uppercase">
+              DEMO
+            </span>
+            <p className="text-text-secondary text-xs sm:text-sm font-semibold">
+              This is a <span className="text-accent-gold font-bold">preview demo</span> of the customizer. The full version is coming soon.
+            </p>
+          </div>
+          <a
+            href="https://wa.me/919885039653"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[10px] font-bold tracking-wider text-accent-gold hover:text-white transition-colors uppercase whitespace-nowrap"
+          >
+            CONTACT TO ORDER &rarr;
+          </a>
+        </div>
+
         {/* Breadcrumbs / Top Actions */}
         <div className="flex items-center justify-between mb-6">
           <Link href="/customize" className="flex items-center gap-1.5 text-xs font-bold text-text-secondary hover:text-accent-gold transition-colors tracking-wider uppercase">
@@ -271,6 +289,8 @@ export default function DesignStudio() {
           </div>
         </div>
       </div>
+
+      <DemoDialog open={demoOpen} onClose={() => setDemoOpen(false)} />
     </div>
   );
 }
